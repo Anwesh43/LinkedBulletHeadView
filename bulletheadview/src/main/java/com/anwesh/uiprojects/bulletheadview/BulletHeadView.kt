@@ -49,9 +49,13 @@ fun Canvas.drawBHNode(i : Int, scale : Float, paint : Paint) {
     val size : Float = gap / sizeFactor
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
+    paint.color = foreColor
+    paint.strokeWidth = Math.min(w, h) / strokeFactor
+    paint.strokeCap = Paint.Cap.ROUND
+    paint.style = Paint.Style.STROKE 
     save()
     translate(w / 2 + (w / 2 + size) * sc2.divideScale(1, parts) * i.sjf(), gap * (i + 1))
-    rotate(90f * sc2.divideScale(0, parts))
+    rotate(90f * sc2.divideScale(0, parts) * i.sjf())
     drawBulletLine(size, sc1, paint)
     restore()
 }
