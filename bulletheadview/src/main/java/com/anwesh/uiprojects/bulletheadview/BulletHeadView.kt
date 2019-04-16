@@ -23,6 +23,7 @@ val strokeFactor : Int = 90
 val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#673AB7")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
 fun Float.scaleFactor() : Float = Math.floor(this / scDiv).toFloat()
@@ -52,10 +53,10 @@ fun Canvas.drawBHNode(i : Int, scale : Float, paint : Paint) {
     paint.color = foreColor
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
-    paint.style = Paint.Style.STROKE 
+    paint.style = Paint.Style.STROKE
     save()
     translate(w / 2 + (w / 2 + size) * sc2.divideScale(1, parts) * i.sjf(), gap * (i + 1))
-    rotate(90f * sc2.divideScale(0, parts) * i.sjf())
+    rotate(angleDeg * sc2.divideScale(0, parts) * i.sjf())
     drawBulletLine(size, sc1, paint)
     restore()
 }
@@ -104,7 +105,7 @@ class BulletHeadView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
