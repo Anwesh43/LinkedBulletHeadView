@@ -186,4 +186,26 @@ class BulletHeadView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BulletHeadView) {
+
+        private val animator : Animator = Animator(view)
+        private var bh : BulletHead = BulletHead(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            bh.draw(canvas, paint)
+            animator.animate {
+                bh.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bh.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
