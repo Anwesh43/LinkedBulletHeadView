@@ -211,4 +211,13 @@ class BulletHeadView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BulletHeadView {
+            val view : BulletHeadView = BulletHeadView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
